@@ -2,10 +2,10 @@ import '../templates/Menu.css'
 export default function Menu(props) {
     return (
         <nav className='menu'>
-            <a href="#/">
+            <a href="/">
                 Alunos
             </a>
-            <a href="#/">
+            <a href="/">
                 Cursos
             </a>
             <a href="#/">
