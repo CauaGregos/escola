@@ -3,15 +3,14 @@ import Logo from '../src/components/templates/Logo';
 import Menu from '../src/components/templates/Menu';
 import Footer from '../src/components/templates/Footer';
 import Rotas from '../src/Rotas';
-import CrudAluno from './CrudAluno/CrudAluno';
-import CrudCurso from './CrudCurso/CrudCurso';
+
 
 function App() {
   return (<div className="App">
     <Logo />
     <Menu />
-    <CrudAluno/>
-    {/* <Footer /> */}
+    <Rotas/>
+    <Footer />
   </div>
   );
 }
