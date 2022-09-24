@@ -74,6 +74,7 @@ export default class CrudAluno extends Component {
                 value={this.state.curso.nomeCurso}
                 onChange={e => this.atualizaCampo(e)}
             />
+            
              <label> Periodo do Curso: </label>
             <input
                 type="text"

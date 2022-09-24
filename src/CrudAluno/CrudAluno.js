@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './CrudAluno.css';
 import Main from '../components/templates/Main';
 import axios from 'axios';
+import OptionsSync from '../components/templates/optionsSync';
 const title = "Cadastro de Alunos";
 
 const urlAPI = "http://localhost:5092/api/aluno";
@@ -18,13 +19,16 @@ const initialState = {
 
 export default class CrudAluno extends Component {
     state = { ...initialState }
+  
     componentDidMount() {
         axios(urlAPI).then(resp => {
-            console.log(resp.data)
-
+            
             this.setState({ lista: resp.data })
+          
         })
     }
+
+   
 
     limpar() {
         this.setState({ aluno: initialState.aluno });
@@ -36,11 +40,16 @@ export default class CrudAluno extends Component {
         axios[metodo](urlAPI, aluno)
             .then(resp => {
                 const lista = this.getListaAtualizada(resp.data)
+                const a = document.getElementById('cursoOption').value
+               
                 this.setState({ aluno: initialState.aluno, lista })
             })
     }
     getListaAtualizada(aluno) {
         const lista = this.state.lista.filter(a => a.id !== aluno.id);
+        axios(urlAPI).then(resp => {
+            this.setState({ lista: resp.data })
+        })
         lista.unshift(aluno);
         return lista;
     }
@@ -53,6 +62,7 @@ export default class CrudAluno extends Component {
         this.setState({ aluno });
     }
     renderForm() {
+        
         return (
             <div className="inclui-container">
             <label> RA: </label>
@@ -79,7 +89,7 @@ export default class CrudAluno extends Component {
                 onChange={e => this.atualizaCampo(e)}
             />
             <label> Código do Curso: </label>
-            <input
+            {/* <input
                 type="number"
                 id="codCurso"
                 placeholder="0"
@@ -88,7 +98,9 @@ export default class CrudAluno extends Component {
 
                 value={this.state.aluno.codCurso}
                 onChange={e => this.atualizaCampo(e)}
-            />
+            /> */}
+                <OptionsSync/>
+              
             <button className="btnSalvar"
                 onClick={e => this.salvar(e)} >
                 Salvar
@@ -107,7 +119,7 @@ export default class CrudAluno extends Component {
     remover(aluno) {
         const url = urlAPI + "/" + aluno.id;
         if (window.confirm("Confirma remoção do aluno: " + aluno.ra)) {
-            console.log("entrou no confirm");
+           
             axios['delete'](url, aluno)
                 .then(resp => {
                     const lista = this.getListaAtualizada(aluno, false)
