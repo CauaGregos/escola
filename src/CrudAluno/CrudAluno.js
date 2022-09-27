@@ -35,13 +35,12 @@ export default class CrudAluno extends Component {
     }
     salvar() {
         const aluno = this.state.aluno;
-        aluno.codCurso = Number(aluno.codCurso);
+        const codCurso = document.getElementById('cursoOption').value
+        aluno.codCurso = Number(codCurso);
         const metodo = 'post';
         axios[metodo](urlAPI, aluno)
             .then(resp => {
                 const lista = this.getListaAtualizada(resp.data)
-                const a = document.getElementById('cursoOption').value
-               
                 this.setState({ aluno: initialState.aluno, lista })
             })
     }

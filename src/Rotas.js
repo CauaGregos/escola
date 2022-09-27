@@ -7,8 +7,7 @@ export default function Rotas() {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={ <Main title="Bem Vindo!">
-                    <div>Página não encontrada</div></Main>} component={Main} />
+                <Route path="/"  element={<CrudAluno/>} component={CrudAluno} />
                 <Route path='/aluno' element={<CrudAluno/>} component={CrudAluno}/>            
                 <Route path='/curso' element={<CrudCurso/>} component={CrudCurso}/>            
             </Routes>
