@@ -15,15 +15,15 @@ export default class OptionsSync extends Component {
         axios(getCurso).then(resp => {
 
             this.setState({ lista: resp.data })
-            console.log(this.state.lista)
+            
         })
     }
    
     render() {
         return (
-            <select >{this.state.lista.map(
+            <select id='cursoOption'>{this.state.lista.map(
                 (cursos) =>
-                    <option id='cursoOption' key={cursos.id} value={cursos.codCurso}>{cursos.nomeCurso}</option>
+                    <option key={cursos.id} value={cursos.codCurso}>{cursos.nomeCurso}</option>
             )}</select>
         )
     }

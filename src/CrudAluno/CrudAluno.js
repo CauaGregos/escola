@@ -8,27 +8,34 @@ const title = "Cadastro de Alunos";
 const urlAPI = "http://localhost:5092/api/aluno";
 const initialState = {
     aluno: { id: 0, ra: '', nome: '', codCurso: 0 },
-    lista: []
+    lista: [],
+    // Novo estado para definir quando eu estou atualizando e vise versa
+    att:false
 }
-// const Alunos = [
-//     { 'id': 1, 'ra': 11111, 'nome': 'André', 'codCurso': 19 },
-//     { 'id': 2, 'ra': 22222, 'nome': 'Amanda', 'codCurso': 28 },
-//     { 'id': 3, 'ra': 33333, 'nome': 'Pedro', 'codCurso': 39 },
-//     { 'id': 4, 'ra': 44444, 'nome': 'Alice', 'codCurso': 59 },
-// ];
 
 export default class CrudAluno extends Component {
     state = { ...initialState }
   
     componentDidMount() {
         axios(urlAPI).then(resp => {
-            
             this.setState({ lista: resp.data })
           
         })
     }
 
-   
+// Atualização com um clone do estado e as novas informações que o cliente preencher
+   atualizar(id){
+    const aluno = this.state.aluno
+    aluno.id = id
+    aluno.codCurso = document.getElementById('cursoOption').value
+    const metodo = 'put';
+    axios[metodo](`${urlAPI}/${id}`, aluno)
+        .then(resp => {
+            const lista = this.getListaAtualizada(resp.data)
+            // Setando meu estado inicial apos a atualização
+            this.setState({ aluno: initialState.aluno, lista,att:false})
+        })
+   }
 
     limpar() {
         this.setState({ aluno: initialState.aluno });
@@ -36,13 +43,18 @@ export default class CrudAluno extends Component {
     salvar() {
         const aluno = this.state.aluno;
         const codCurso = document.getElementById('cursoOption').value
+        if (!this.state.att){
+        console.log(codCurso)
         aluno.codCurso = Number(codCurso);
         const metodo = 'post';
         axios[metodo](urlAPI, aluno)
             .then(resp => {
                 const lista = this.getListaAtualizada(resp.data)
+                console.log(lista)
                 this.setState({ aluno: initialState.aluno, lista })
             })
+        }
+        else this.atualizar(aluno.id)
     }
     getListaAtualizada(aluno) {
         const lista = this.state.lista.filter(a => a.id !== aluno.id);
@@ -88,16 +100,6 @@ export default class CrudAluno extends Component {
                 onChange={e => this.atualizaCampo(e)}
             />
             <label> Código do Curso: </label>
-            {/* <input
-                type="number"
-                id="codCurso"
-                placeholder="0"
-                className="form-input"
-                name="codCurso"
-
-                value={this.state.aluno.codCurso}
-                onChange={e => this.atualizaCampo(e)}
-            /> */}
                 <OptionsSync/>
               
             <button className="btnSalvar"
@@ -113,7 +115,10 @@ export default class CrudAluno extends Component {
     }
 
     carregar(aluno) {
-        this.setState({ aluno })
+        // estados preparando para a atualizar os dados.
+        // seto o estado de atualzação
+        this.setState({ aluno: aluno,att:true})
+       
     }
     remover(aluno) {
         const url = urlAPI + "/" + aluno.id;

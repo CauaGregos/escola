@@ -1,6 +1,5 @@
 import React from 'react';
 import { Routes, Route, BrowserRouter } from "react-router-dom";
-import Main from '../src/components/templates/Main';
 import CrudAluno from './CrudAluno/CrudAluno';
 import CrudCurso from './CrudCurso/CrudCurso';
 export default function Rotas() {
