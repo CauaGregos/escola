@@ -8,7 +8,7 @@ export default function Menu(props) {
             <a href="/curso">
                 Cursos
             </a>
-            <a href="#/">
+            <a href="/carometro">
                 Carômetro
             </a>
         </nav>
