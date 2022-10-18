@@ -25,7 +25,7 @@ export default class ImagePerfil extends Component {
             <div>
             {this.state.lista.map(
                 (e) =>
-                <img style={{width:'100px'}} src={e.url}/>
+                <img key={e.id} style={{width:'150px',marginLeft:'10%',borderRadius:'300px'}} src={e.url}/>
             )}
           </div>
         )

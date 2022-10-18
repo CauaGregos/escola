@@ -23,7 +23,7 @@ export default class OptionsSync extends Component {
         return (
             <select id='cursoOption'>{this.state.lista.map(
                 (cursos) =>
-                    <option key={cursos.id} value={cursos.codCurso}>{cursos.nomeCurso}</option>
+                    <option  key={cursos.id} value={cursos.codCurso}>{cursos.nomeCurso}</option>
             )}</select>
         )
     }

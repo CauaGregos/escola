@@ -2,6 +2,7 @@ div.content{
     width: 80%;
     height: 80%;
     margin:auto;
+    flexWrap:'wrap'
     }
     main > div {
     background-color: #fff;
