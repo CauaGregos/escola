@@ -1,16 +1,37 @@
-import '../templates/Menu.css'
+import React, { useEffect, useState } from 'react';
+import './Menu.css';
+import { Link } from 'react-router-dom';
+import AuthService from '../../Services/AuthService';
+
+
 export default function Menu(props) {
+    const [currentUser, setCurrentUser] = useState(undefined);
+    useEffect(() => {
+        const user = AuthService.getCurrentUser();
+        if (user) {
+            setCurrentUser(user);
+        }
+    }, []);
     return (
         <nav className='menu'>
-            <a href="/aluno">
+            <Link to="/aluno">
                 Alunos
-            </a>
-            <a href="/curso">
+            </Link>
+            <Link to="/cursos">
                 Cursos
-            </a>
-            <a href="/carometro">
+            </Link>
+            <Link to="/carometro">
                 Carômetro
-            </a>
+            </Link>
+            {currentUser ? (
+                <Link to="/logout">
+                    Logout
+                </Link>
+            ) : (
+                <Link to="/login">
+                    Login
+                </Link>
+            )}
         </nav>
     )
 }
